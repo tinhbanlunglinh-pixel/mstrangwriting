@@ -28,6 +28,7 @@ import {
   Image as ImageIcon
 } from 'lucide-react';
 import { gradeEssay, GradingResult, EssayError } from './services/geminiService.ts';
+import { logoBase64 } from './logoBase64';
 
 // --- Types ---
 interface StudentInfo {
@@ -181,6 +182,10 @@ export default function App() {
       setShowKeyModal(true);
       return;
     }
+    if (!studentInfo.topic.trim()) {
+      setError("Vui lòng nhập Đề bài / Topic trước khi chấm.");
+      return;
+    }
     if (!essay.trim()) {
       setError("Vui lòng nhập bài viết của học sinh.");
       return;
@@ -276,7 +281,7 @@ export default function App() {
             <div className="flex justify-between items-start mb-6">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-20 h-20 md:w-28 md:h-28 bg-white rounded-full border-4 border-brand-gold p-1 shadow-2xl flex items-center justify-center overflow-hidden shrink-0 ring-4 ring-white/10">
-                   <img src="https://i.postimg.cc/3xcLr6w5/logo.png" alt="Logo English Ms Trang" className="w-full h-full object-contain" crossOrigin="anonymous" onError={(e) => {
+                   <img src={logoBase64} alt="Logo English Ms Trang" className="w-full h-full object-contain" onError={(e) => {
                      e.currentTarget.src = "https://ui-avatars.com/api/?name=English+Ms+Trang&background=8d141e&color=ffffff";
                    }}/>
                 </div>
@@ -502,7 +507,9 @@ export default function App() {
                     </select>
                   </div>
                   <div className="space-y-2 md:col-span-2">
-                    <label className="text-xs font-black text-slate-700 uppercase tracking-widest">Đề bài / Topic (Option)</label>
+                    <label className="text-xs font-black text-slate-700 uppercase tracking-widest flex items-center gap-1">
+                      Đề bài / Topic <span className="text-red-500 font-bold">*</span>
+                    </label>
                     <input 
                       type="text" 
                       placeholder="VD: Viết về sở thích cá nhân..."
@@ -588,7 +595,7 @@ export default function App() {
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-center md:items-center gap-6">
                     <div className="text-center md:text-left flex flex-col items-center md:items-start text-white">
                       <div className="w-14 h-14 bg-white rounded-full p-1 border-2 border-brand-gold shadow-xl mb-2 flex items-center justify-center overflow-hidden">
-                        <img src="https://i.postimg.cc/3xcLr6w5/logo.png" alt="Logo Result" className="w-full h-full object-contain" crossOrigin="anonymous" />
+                        <img src={logoBase64} alt="Logo Result" className="w-full h-full object-contain" />
                       </div>
                       <h2 className="text-xl md:text-2xl font-serif font-black mb-1 text-brand-gold uppercase tracking-tight drop-shadow-lg">{studentInfo.name || "Học sinh"}</h2>
                       <div className="space-y-1.5 text-xs text-white">
@@ -743,7 +750,7 @@ export default function App() {
             {/* Brand */}
             <div className="text-center md:text-left">
               <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full p-1 mb-4 mx-auto md:mx-0 flex items-center justify-center overflow-hidden border-2 border-brand-gold shadow-2xl ring-4 ring-white/5">
-                 <img src="https://i.postimg.cc/3xcLr6w5/logo.png" alt="Logo Footer" className="w-full h-full object-contain" crossOrigin="anonymous" />
+                 <img src={logoBase64} alt="Logo Footer" className="w-full h-full object-contain" />
               </div>
               <h2 className="text-lg font-serif font-black text-brand-gold mb-1 uppercase tracking-wide drop-shadow-md whitespace-nowrap">English Ms Trang</h2>
               <p className="text-xs text-white font-black mb-1 slide-in-from-left opacity-90 drop-shadow-sm italic">"Xây nền từ móng, chinh phục đỉnh cao"</p>
